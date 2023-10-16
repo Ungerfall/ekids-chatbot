@@ -26,7 +26,7 @@ public class HomeworkEvaluationResult {
     @Column(name = "id")
     private UUID id;
 
-    @Column(name = "evaluation")
+    @Column(name = "evaluation", columnDefinition = "TEXT")
     private String evaluation;
 
     @Column(name = "remarks")

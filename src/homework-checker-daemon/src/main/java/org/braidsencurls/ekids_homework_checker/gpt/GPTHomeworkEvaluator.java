@@ -29,7 +29,7 @@ import java.util.Optional;
 @Slf4j
 public class GPTHomeworkEvaluator implements HomeworkEvaluator {
     public static final String SYSTEM_ROLE = "system";
-    public static final String SYSTEM_MESSAGE = "You are an assistant and your task is to evaluate SCRATCH programming homework. You will check if the project.json content meets the following criteria. In your JSON response, it should include a properties success = true, if the current criteria is met, criteria = the current criteria being checked and sprite = list of sprite names that met the current criteria. ";
+    public static final String SYSTEM_MESSAGE = "You are an assistant and your task is to evaluate SCRATCH programming homework. You will check if the project.json content meets the following criteria. In your JSON response, it should include a properties success = true, if the current criteria is met, criteria = the current criteria being checked and sprite = list of sprite names that met the current criteria. Just Provide the JSON response and nothing else";
     //public static final String SYSTEM_MESSAGE = "You are an assistant and your task is to evaluate a SCRATCH project if it meets the given criteria. For the time-being, mock the response to success is equals to true";
     public static final String USER_ROLE = "user";
     private OpenAIChatCompletionClient openAIChatCompletionClient;
@@ -114,7 +114,7 @@ public class GPTHomeworkEvaluator implements HomeworkEvaluator {
 
     private EvaluationResponse getEvaluation(FunctionExecutor functionExecutor, ChatMessage responseMessage) {
         try {
-            ChatFunctionCall functionCall = responseMessage.getFunctionCall();
+           ChatFunctionCall functionCall = responseMessage.getFunctionCall();
             if (functionCall == null) {
                 throw new ChatCompletionProcessingException("No Function Call Found!");
             }

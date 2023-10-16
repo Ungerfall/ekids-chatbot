@@ -59,7 +59,7 @@ public class HomeworkProcessor {
         }
 
         String studentName = filename.split("_")[1]
-                .split("//.")[0];
+                .split("\\.")[0];
 
         result.setStudentName(studentName);
         result.setFileReference(filename);
