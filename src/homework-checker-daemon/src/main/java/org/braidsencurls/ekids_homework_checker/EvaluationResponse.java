@@ -13,13 +13,13 @@ public class EvaluationResponse {
     }
     public EvaluationResponse() {}
 
-    @JsonPropertyDescription("boolean - flag if the criteria is met")
+    @JsonPropertyDescription("A flag to determine if the criteria is met.")
     @JsonProperty(required = true)
     private boolean success;
-    @JsonPropertyDescription("string - criteria description")
+    @JsonPropertyDescription("The criteria currently being evaluated.")
     @JsonProperty(required = true)
     private String criteria;
-    @JsonPropertyDescription("list of string - name of the sprites that met the criteria")
+    @JsonPropertyDescription("A list of sprites that meet the criteria.")
     @JsonProperty(required = true)
     private List<String> sprite;
 
