@@ -58,27 +58,28 @@ public class GPTHomeworkEvaluator implements HomeworkEvaluator {
                 chatMessages.add(responseMessage);
                 evaluations.add(getEvaluation(functionExecutor, responseMessage));
 
-                saveAudit(homework, result, chatMessages.get(0).getContent(), null);
+                saveAudit(homework, result, chatMessages.get(0).getContent());
             } catch (JsonProcessingException | RuntimeException e) {
                 log.error("Evaluation failed!", e);
-                saveAudit(homework, null, chatMessages.get(0).getContent(), e.getMessage());
+                saveAudit(homework, chatMessages.get(0).getContent(), e.getMessage());
                 throw new ClientException(e.getMessage());
             }
         }
         return evaluations;
     }
 
-    private void saveAudit(Homework homework, ChatCompletionResult result,
-                           String prompt, String errorMessage) {
+    private void saveAudit(Homework homework, String prompt, String errorMessage) {
         OpenAIChatCompletionAudit audit = new OpenAIChatCompletionAudit();
 
-        if(StringUtils.isNotBlank(errorMessage)) {
+        if (StringUtils.isNotBlank(errorMessage)) {
             audit.setHomework(homework);
             audit.setErrorMessage(errorMessage);
             audit.setPrompt(prompt);
             auditRepository.save(audit);
-            return;
         }
+    }
+    private void saveAudit(Homework homework, ChatCompletionResult result, String prompt) {
+        OpenAIChatCompletionAudit audit = new OpenAIChatCompletionAudit();
 
         ChatCompletionChoice chatCompletionChoice = result.getChoices().get(0);
         Usage usage = result.getUsage();

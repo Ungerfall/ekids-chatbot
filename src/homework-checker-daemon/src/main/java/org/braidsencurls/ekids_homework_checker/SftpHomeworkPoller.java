@@ -42,7 +42,10 @@ public class SftpHomeworkPoller {
         this.homeworkProcessor = homeworkProcessor;
     }
 
-    @Scheduled(fixedRate = 5000)
+    /**
+     * Polls files from a SFTP directory
+     */
+    //@Scheduled(fixedRate = 5000)
     public void poll() {
         JSch jsch = new JSch();
         Session session = null;
