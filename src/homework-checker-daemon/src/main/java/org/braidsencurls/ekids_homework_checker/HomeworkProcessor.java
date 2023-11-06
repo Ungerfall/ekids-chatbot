@@ -9,6 +9,7 @@ import org.braidsencurls.ekids_homework_checker.entities.HomeworkEvaluationResul
 import org.braidsencurls.ekids_homework_checker.exceptions.ClientException;
 import org.braidsencurls.ekids_homework_checker.management.HomeworkManagementService;
 import org.braidsencurls.ekids_homework_checker.utilities.FileHelper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -26,10 +27,13 @@ public class HomeworkProcessor {
     private HomeworkManagementService homeworkManagementService;
     private ObjectMapper objectMapper;
 
+    @Value("#{'${scratch.irrelevant.jsonPath}'.split(',')}")
+    private List<String> irrelevantPaths;
+
     public void process(String filename, InputStream inputStream) throws JsonProcessingException {
         log.info("Processing homework with filename {}", filename);
 
-        String content = FileHelper.readFileFromZip(inputStream, PROJECT_JSON);
+        String content = getContent(inputStream);
         String homeworkCode = filename.split("_")[0];
 
         Homework homework = homeworkManagementService.findByCode(homeworkCode);
@@ -41,6 +45,14 @@ public class HomeworkProcessor {
             saveResult(filename, homework, null);
             throw e;
         }
+    }
+
+    private String getContent(InputStream inputStream) {
+        String content = FileHelper.readFileFromZip(inputStream, PROJECT_JSON);
+        if(!CollectionUtils.isEmpty(irrelevantPaths)) {
+            content = FileHelper.removeJsonPaths(content, irrelevantPaths);
+        }
+        return content;
     }
 
     private void saveResult(String filename, Homework homework, List<EvaluationResponse> evaluations) throws JsonProcessingException {
@@ -58,8 +70,7 @@ public class HomeworkProcessor {
                     "All Criteria has been met";
         }
 
-        String studentName = filename.split("_")[1]
-                .split("\\.")[0];
+        String studentName = filename.split("_")[1].split("\\.")[0];
 
         result.setStudentName(studentName);
         result.setFileReference(filename);

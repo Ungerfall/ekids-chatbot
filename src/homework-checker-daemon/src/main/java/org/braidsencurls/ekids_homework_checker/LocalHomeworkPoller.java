@@ -29,6 +29,8 @@ public class LocalHomeworkPoller {
     private String successDirectory;
     @Value("${local.error.destination.directory}")
     private String errorDirectory;
+    @Value("${scratch.allowed.file.size.kb}")
+    private Long allowedFileSize;
 
     public static final String SB_3_FILE_EXTENSION = ".sb3";
 
@@ -58,7 +60,8 @@ public class LocalHomeworkPoller {
             File file = filePath.toFile();
             filename = file.getName();
 
-            if(!filename.endsWith(SB_3_FILE_EXTENSION)) {
+            long allowedFileSizeInBytes = 1000 * allowedFileSize;
+            if(!filename.endsWith(SB_3_FILE_EXTENSION) || channel.size() > allowedFileSizeInBytes) {
                 return;
             }
 
@@ -66,7 +69,7 @@ public class LocalHomeworkPoller {
             homeworkProcessor.process(filename, inputStream);
             Path destination = Paths.get(successDirectory).resolve(file.getName());
             moveFile(filePath, destination);
-        } catch (IOException e) {
+        } catch (Exception e) {
             Path destination = Paths.get(errorDirectory).resolve(filename);
             moveFile(filePath, destination);
         }

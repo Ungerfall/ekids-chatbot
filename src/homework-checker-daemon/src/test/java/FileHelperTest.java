@@ -5,6 +5,10 @@ import org.junit.jupiter.api.Test;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
 
 public class FileHelperTest {
 
@@ -23,5 +27,19 @@ public class FileHelperTest {
         Assertions.assertThrows(NoContentException.class, () -> {
             FileHelper.readFileFromZip(fileInputStream, "no_such_file.json");
         });
+    }
+
+    @Test
+    public void shrinkJson_validSchema_shouldShrinkJson() throws IOException {
+        String projectJsonFilePath = "src/test/resources/sample-project.json";
+        String expectedProjectJsonFilePath = "src/test/resources/shrunken-project.json";
+
+        String projectContent = Files.readString(Path.of(projectJsonFilePath));
+        String expectedContent = Files.readString(Path.of(expectedProjectJsonFilePath));
+
+        List<String> jsonPathsToRemove = List.of("$.targets[*].costumes", "$.targets[*].sounds");
+        String output = FileHelper.removeJsonPaths(projectContent, jsonPathsToRemove);
+
+        Assertions.assertEquals(expectedContent, output);
     }
 }
