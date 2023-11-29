@@ -40,7 +40,6 @@ public class OpenAIChatCompletionClient {
                 .frequencyPenalty(0.0)
                 .presencePenalty(0.0)
                 .topP(1.0)
-                .maxTokens(256)
                 .messages(chatMessages)
                 .functions(functionExecutor.getFunctions())
                 .functionCall(new ChatCompletionRequestFunctionCall("auto"))
