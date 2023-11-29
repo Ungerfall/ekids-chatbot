@@ -57,6 +57,6 @@ The _homework management module_ provides the following REST APIs to manage home
 | DELETE |            /homework-management/homework/[homework_id]             |            Delete Homework             |
 
 #### Database Design
+Editor Link: https://www.mermaidchart.com/app/projects/9d4fd38b-1164-4768-9c7e-3a6bd1f20f96/diagrams/3b1b3640-9139-4565-93a6-9b9b31c44e39/version/v0.1/edit
 
-![ekids Homework Checking DB.png](src%2Fhomework-management-backend%2Fekids%20Homework%20Checking%20DB.png)
-
+SVG Link: https://www.mermaidchart.com/raw/3b1b3640-9139-4565-93a6-9b9b31c44e39?theme=light&version=v0.1&format=svg
