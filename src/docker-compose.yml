@@ -7,6 +7,18 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/homework-management
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=P@nVi2023!
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - LOCAL.SOURCE.DIRECTORY=/sftp/eKidz/Homeworks/IN/
+      - LOCAL.SUCCESS.DESTINATION.DIRECTORY=/sftp/eKidz/Homeworks/SUCCESS/
+      - LOCAL.ERROR.DESTINATION.DIRECTORY=/sftp/eKidz/Homeworks/ERROR/
+    volumes:
+      - "C:/SFTP/eKidz/Homeworks/IN:/sftp/eKidz/Homeworks/IN"
+      - "C:/SFTP/eKidz/Homeworks/SUCCESS:/sftp/eKidz/Homeworks/SUCCESS"
+      - "C:/SFTP/eKidz/Homeworks/ERROR:/sftp/eKidz/Homeworks/ERROR"
     depends_on:
       - postgresql
 
@@ -24,9 +36,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: mydatabase
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
+      POSTGRES_DB: homework-management
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: P@nVi2023!
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
