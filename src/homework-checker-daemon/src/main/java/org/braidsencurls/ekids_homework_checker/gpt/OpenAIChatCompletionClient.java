@@ -28,6 +28,12 @@ public class OpenAIChatCompletionClient {
     private long API_TIMEOUT;
     @Value("${openai.completion.temperature}")
     private double COMPLETION_TEMPERATURE;
+    @Value("${openai.completion.top_p}")
+    private double COMPLETION_TOP_P;
+    @Value("${openai.completion.frequency.penalty}")
+    private double COMPLETION_FREQUENCY_PENALTY;
+    @Value("${openai.completion.presence.penalty}")
+    private double COMPLETION_PRESENCE_PENALTY;
 
     public OpenAiService getOpenAiService() {
         return new OpenAiService(API_KEY, Duration.ofSeconds(API_TIMEOUT));
@@ -37,9 +43,9 @@ public class OpenAIChatCompletionClient {
         return ChatCompletionRequest.builder()
                 .model(API_MODEL)
                 .temperature(COMPLETION_TEMPERATURE)
-                .frequencyPenalty(0.0)
-                .presencePenalty(0.0)
-                .topP(1.0)
+                .frequencyPenalty(COMPLETION_FREQUENCY_PENALTY)
+                .presencePenalty(COMPLETION_PRESENCE_PENALTY)
+                .topP(COMPLETION_TOP_P)
                 .messages(chatMessages)
                 .functions(functionExecutor.getFunctions())
                 .functionCall(new ChatCompletionRequestFunctionCall("auto"))

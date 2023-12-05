@@ -60,8 +60,7 @@ public class LocalHomeworkPoller {
             File file = filePath.toFile();
             filename = file.getName();
 
-            long allowedFileSizeInBytes = 1000 * allowedFileSize;
-            if(!filename.endsWith(SB_3_FILE_EXTENSION) || channel.size() > allowedFileSizeInBytes) {
+            if (!isFileAllowed(filename, channel)) {
                 return;
             }
 
@@ -73,6 +72,14 @@ public class LocalHomeworkPoller {
             Path destination = Paths.get(errorDirectory).resolve(filename);
             moveFile(filePath, destination);
         }
+    }
+
+    private boolean isFileAllowed(String filename, FileChannel channel) throws IOException {
+        long allowedFileSizeInBytes = 1000 * allowedFileSize;
+        if(filename.endsWith(SB_3_FILE_EXTENSION) || channel.size() <= allowedFileSizeInBytes) {
+            return true;
+        }
+        return false;
     }
 
     private void moveFile(Path source, Path target) {
