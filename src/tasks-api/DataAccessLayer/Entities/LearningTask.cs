@@ -1,4 +1,4 @@
-﻿namespace EKids.Chatbot.Tasks.DataAccessLayer;
+﻿namespace EKids.Chatbot.Tasks.DataAccessLayer.Entities;
 public class LearningTask
 {
     public required string Id { get; init; }

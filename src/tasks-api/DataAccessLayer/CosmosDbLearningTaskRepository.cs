@@ -1,17 +1,19 @@
 ﻿using System.Runtime.CompilerServices;
 
+using EKids.Chatbot.Tasks.DataAccessLayer.Entities;
+
 using Microsoft.Azure.Cosmos;
 
 namespace EKids.Chatbot.Tasks.DataAccessLayer;
 internal class CosmosDbLearningTaskRepository(CosmosClient cosmosClient, CosmosDbOptions cosmosDbOptions)
-    : ILearningTaskRepository<string>
+    : ILearningTaskRepository
 {
-    public async Task DeleteById(string id, CancellationToken cancellation)
+    public async Task DeleteById(Guid courseId, Guid taskId, CancellationToken cancellation)
     {
         var container = cosmosClient.GetContainer(cosmosDbOptions.DatabaseId, cosmosDbOptions.TasksContainer);
         await container.DeleteItemAsync<LearningTask>(
-            id,
-            PartitionKey.None,
+            taskId.ToString(),
+            new PartitionKey(courseId.ToString()),
             new ItemRequestOptions { EnableContentResponseOnWrite = false },
             cancellation);
     }
@@ -38,10 +40,13 @@ internal class CosmosDbLearningTaskRepository(CosmosClient cosmosClient, CosmosD
         }
     }
 
-    public async Task<LearningTask> FindById(string id, CancellationToken cancellation)
+    public async Task<LearningTask> Find(Guid courseId, Guid taskId, CancellationToken cancellation)
     {
         var container = cosmosClient.GetContainer(cosmosDbOptions.DatabaseId, cosmosDbOptions.TasksContainer);
-        return await container.ReadItemAsync<LearningTask>(id, PartitionKey.None, cancellationToken: cancellation);
+        return await container.ReadItemAsync<LearningTask>(
+            taskId.ToString(),
+            new PartitionKey(courseId.ToString()),
+            cancellationToken: cancellation);
     }
 
     public async IAsyncEnumerable<LearningTask> Save(IEnumerable<LearningTask> tasks, [EnumeratorCancellation] CancellationToken cancellation)
