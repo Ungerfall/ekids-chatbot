@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace EKids.Chatbot.Tasks.DataAccessLayer;
+namespace EKids.Chatbot.Tasks.DataAccessLayer.Entities;
 
 [Flags]
 [JsonConverter(typeof(JsonStringEnumConverter<TaskComplexity>))]
