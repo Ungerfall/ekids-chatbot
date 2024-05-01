@@ -2,6 +2,9 @@
 
 internal class CosmosDbOptions
 {
-    public required string DatabaseId { get; init; }
-    public required string TasksContainer { get; init; }
+    public const string ConfigSection = "Tasks:CosmosDb";
+
+    public required string CosmosDbConnectionString { get; set; }
+    public required string DatabaseId { get; set; }
+    public required string TasksContainer { get; set; }
 }
