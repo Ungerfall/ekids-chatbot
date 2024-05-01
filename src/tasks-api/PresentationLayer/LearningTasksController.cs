@@ -5,7 +5,7 @@ using EKids.Chatbot.Tasks.DataAccessLayer.Entities;
 
 namespace EKids.Chatbot.Tasks.PresentationLayer;
 /// <summary>
-/// Extends minimal api <see cref="WebApplication"/> with learning tasks endpoints
+/// Extends minimal API <see cref="WebApplication"/> with learning tasks endpoints
 /// </summary>
 public static class LearningTasksController
 {
@@ -33,8 +33,11 @@ public static class LearningTasksController
             Guid courseId,
             LearningTask task,
             ILearningTaskService service,
-            CancellationToken cancellation)
-                => await service.AddTask(task, courseId, cancellation));
+            CancellationToken cancellation) =>
+        {
+            await service.AddTask(task, courseId, cancellation);
+            return Results.Accepted();
+        });
         coursesApi.MapDelete("/{courseId}/tasks/{taskId}", async (
             Guid courseId,
             Guid taskId,
