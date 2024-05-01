@@ -1,11 +1,35 @@
 @EKids.Chatbot.Tasks_HostAddress = http://localhost:5255
+@courseId = e9b2073d-590a-4da4-9fb5-2c0dfb3fe63c
+@taskId = 51c659b2-9393-43d9-9977-93b6ff66914f
 
-GET {{EKids.Chatbot.Tasks_HostAddress}}/todos/
+GET {{EKids.Chatbot.Tasks_HostAddress}}/tasks/
 Accept: application/json
 
 ###
 
-GET {{EKids.Chatbot.Tasks_HostAddress}}/todos/1
+GET {{EKids.Chatbot.Tasks_HostAddress}}/courses/{{courseId}}/tasks
 Accept: application/json
+
+###
+
+GET {{EKids.Chatbot.Tasks_HostAddress}}/courses/{{courseId}}/tasks/{{taskId}}
+Accept: application/json
+
+###
+
+POST {{EKids.Chatbot.Tasks_HostAddress}}/courses/{{courseId}}/tasks
+Content-Type: application/json
+
+{
+    "id": "{{taskId}}",
+    "title": "Create a movie",
+    "courseId": "{{courseId}}",
+    "description": "Create a movie with 5 frames",
+    "year": 2024
+}
+
+###
+
+DELETE {{EKids.Chatbot.Tasks_HostAddress}}/courses/{{courseId}}/tasks/{{taskId}}
 
 ###
