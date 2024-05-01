@@ -6,8 +6,7 @@ public class LearningTaskService(ILearningTaskRepository repo) : ILearningTaskSe
 {
     public Task AddTask(LearningTask task, Guid courseId, CancellationToken cancellation)
     {
-        repo.Save([task], cancellation);
-        return Task.CompletedTask;
+        return repo.Save([task], cancellation);
     }
 
     public Task DeleteTask(Guid courseId, Guid taskId, CancellationToken cancellation)
@@ -15,13 +14,13 @@ public class LearningTaskService(ILearningTaskRepository repo) : ILearningTaskSe
         return repo.DeleteById(courseId, taskId, cancellation);
     }
 
-    public Task<LearningTask> FindTask(Guid courseId, Guid taskId, CancellationToken cancellation)
+    public Task<LearningTask?> FindTask(Guid courseId, Guid taskId, CancellationToken cancellation)
     {
         return repo.Find(courseId, taskId, cancellation);
     }
 
     public IAsyncEnumerable<LearningTask> ListTasks(Guid? courseId, CancellationToken cancellation)
     {
-        return repo.FindAll(cancellation);
+        return repo.FindAll(courseId, cancellation);
     }
 }
