@@ -1,6 +1,6 @@
 ﻿namespace EKids.Chatbot.Tasks.DataAccessLayer;
 
-internal class CosmosDbOptions
+public class CosmosDbOptions
 {
     public const string ConfigSection = "Tasks:CosmosDb";
 

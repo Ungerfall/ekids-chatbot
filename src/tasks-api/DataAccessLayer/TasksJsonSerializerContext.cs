@@ -1,4 +1,5 @@
 ﻿using EKids.Chatbot.Tasks.DataAccessLayer.Entities;
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace EKids.Chatbot.Tasks.DataAccessLayer;
@@ -7,4 +8,4 @@ namespace EKids.Chatbot.Tasks.DataAccessLayer;
 [JsonSerializable(typeof(IAsyncEnumerable<LearningTask>))]
 [JsonSerializable(typeof(LearningTask[]))]
 [JsonSerializable(typeof(TaskComplexity))]
-internal partial class TasksJsonSerializerContext : JsonSerializerContext;
+public partial class TasksJsonSerializerContext : JsonSerializerContext;
