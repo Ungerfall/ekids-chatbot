@@ -1,10 +1,15 @@
 ﻿using EKids.Chatbot.Tasks.DataAccessLayer.Entities;
 using Microsoft.Azure.Cosmos;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace EKids.Chatbot.Tasks.DataAccessLayer;
-internal class CosmosDbLearningTaskRepository(
+public class CosmosDbLearningTaskRepository(
     CosmosClient cosmosClient,
     IOptions<CosmosDbOptions> cosmosDbOptions,
     ILogger<CosmosDbLearningTaskRepository> logger)

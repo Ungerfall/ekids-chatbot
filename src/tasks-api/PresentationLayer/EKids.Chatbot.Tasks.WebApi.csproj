@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>true</InvariantGlobalization>
     <PublishAot>true</PublishAot>
     <UserSecretsId>da3da5d9-4e32-45d3-97c8-7219147ef90e</UserSecretsId>
@@ -11,6 +10,11 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.39.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessLayer\EKids.Chatbot.Tasks.BusinessLayer.csproj" />
+    <ProjectReference Include="..\DataAccessLayer\EKids.Chatbot.Tasks.DataAccessLayer.csproj" />
   </ItemGroup>
 
 </Project>
