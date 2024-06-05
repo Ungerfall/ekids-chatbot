@@ -4,12 +4,13 @@ using System;
 namespace EKids.Chatbot.Homeworks.Core.Entities;
 
 public class Homework(
+    Guid id,
     Guid courseId,
     string title,
     string description,
     string url,
     DateTime startDate,
-    DateTime endDate) : Entity(Guid.NewGuid())
+    DateTime endDate) : Entity(id)
 {
     public Guid CourseId { get; } = courseId;
     public string Title { get; } = title;
