@@ -6,10 +6,6 @@
     <InvariantGlobalization>true</InvariantGlobalization>
   </PropertyGroup>
 
-  <ItemGroup>    
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
-  </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\EKids.Chatbot.Homeworks.Application\EKids.Chatbot.Homeworks.Application.csproj" />
     <ProjectReference Include="..\EKids.Chatbot.Homeworks.Infrastructure\EKids.Chatbot.Homeworks.Infrastructure.csproj" />

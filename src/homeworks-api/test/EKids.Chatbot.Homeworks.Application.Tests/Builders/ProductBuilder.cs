@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace AspnetRun.Application.Tests.Builders
+namespace EKids.Chatbot.Homeworks.Application.Tests.Builders;
+
+public class ProductBuilder
 {
-    public class ProductBuilder
-    {
-        public int ProductId1 => 123;
-        public int ProductId2 => 124;
-        public int ProductId3 => 125;
-        public string ProductName1 => "ProductX";
-        public string ProductName2 => "ProductY";
-        public string ProductName3 => "ProductZ";        
-    }
+    public Guid HomeworkId_1 { get; } = Guid.NewGuid();
+    public Guid HomeworkId_2 { get; } = Guid.NewGuid();
+    public Guid HomeworkId_3 { get; } = Guid.NewGuid();
+    public string HomeworkTitle_1 { get; } = "HomeworkTitleX";
+    public string HomeworkTitle_2 { get; } = "HomeworkTitleY";
+    public string HomeworkTitle_3 { get; } = "HomeworkTitleZ";
 }

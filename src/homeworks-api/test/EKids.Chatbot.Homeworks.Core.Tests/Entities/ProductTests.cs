@@ -1,26 +1,29 @@
-﻿using AspnetRun.Core.Entities;
+﻿using EKids.Chatbot.Homeworks.Core.Entities;
+using System;
 using Xunit;
 
-namespace AspnetRun.Core.Tests.Entities
+namespace EKids.Chatbot.Homeworks.Core.Tests.Entities;
+
+public class ProductTests
 {
-    public class ProductTests
+    private readonly Guid _testCourseId = Guid.NewGuid();
+    private readonly string _testTitle = "title";
+    private readonly string _testDescription = "description";
+    private readonly string _testUrl = "url";
+    private readonly DateTime _testSd = new(2023, 1, 1);
+    private readonly DateTime _testEd = new(2024, 1, 1);
+
+    [Fact]
+    public void Create_Homework()
     {
-        private int _testProductId = 2;
-        private int _testCategoryId = 3;
-        private string _testProductName = "Reason";
-        private decimal _testUnitPrice = 1.23m;
-        private short _testQuantity = 2;
+        Homework hw = new(Guid.NewGuid(), _testCourseId, _testTitle, _testDescription, _testUrl, _testSd, _testEd);
 
-        [Fact]
-        public void Create_Product()
-        {
-            var product = Product.Create(_testProductId, _testCategoryId, _testProductName, _testUnitPrice, _testQuantity, null, null, false);
-
-            Assert.Equal(_testProductId, product.Id);
-            Assert.Equal(_testCategoryId, product.CategoryId);
-            Assert.Equal(_testProductName, product.ProductName);
-            Assert.Equal(_testUnitPrice, product.UnitPrice);
-            Assert.Equal(_testQuantity, product.UnitsInStock);
-        }
+        Assert.NotEqual(Guid.Empty, hw.Id);
+        Assert.Equal(_testCourseId, hw.CourseId);
+        Assert.Equal(_testTitle, hw.Title);
+        Assert.Equal(_testDescription, hw.Description);
+        Assert.Equal(_testUrl, hw.Url);
+        Assert.Equal(_testSd, hw.StartDate);
+        Assert.Equal(_testEd, hw.EndDate);
     }
 }

@@ -27,5 +27,9 @@ public class HomeworkContext(DbContextOptions options) : DbContext(options)
 
         builder.Property(cb => cb.StartDate)
             .IsRequired();
+
+        builder.Property(cb => cb.Description);
+        builder.Property(cb => cb.Url);
+        builder.Property(cb => cb.EndDate);
     }
 }

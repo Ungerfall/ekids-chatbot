@@ -14,17 +14,10 @@ public static class ObjectMapper
         {
             // This line ensures that internal properties are also mapped over.
             cfg.ShouldMapProperty = p => (p?.GetMethod?.IsPublic ?? false) || (p?.GetMethod?.IsAssembly ?? false);
-            cfg.AddProfile<EkidsChatbotDtoMapper>();
+            cfg.CreateMap<Homework, HomeworkModel>()
+                .ReverseMap();
         });
         return config.CreateMapper();
     });
     public static IMapper Mapper => Lazy.Value;
-}
-
-public class EkidsChatbotDtoMapper : Profile
-{
-    public EkidsChatbotDtoMapper()
-    {
-        CreateMap<Homework, HomeworkModel>();
-    }
 }
