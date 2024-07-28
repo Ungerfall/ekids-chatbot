@@ -17,6 +17,7 @@ builder.Services.AddApiVersioning();
 var app = builder.Build();
 app.UseDeveloperExceptionPage();
 
+// TODO: extract to separate files
 var usersApi = app.NewVersionedApi("/users");
 usersApi
     .MapGet("/", async (UsersDbContext db, CancellationToken cancellation) =>
