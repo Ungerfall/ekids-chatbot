@@ -13,4 +13,9 @@
     <PackageReference Include="Aspire.Hosting.AppHost" Version="8.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\chatbot\src\EKids.Chatbot.Telegram.Worker\EKids.Chatbot.Telegram.Worker.csproj" />
+    <ProjectReference Include="..\..\users-api\src\EKids.Chatbot.Users.WebApi\EKids.Chatbot.Users.WebApi.csproj" />
+  </ItemGroup>
+
 </Project>
