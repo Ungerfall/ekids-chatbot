@@ -1,11 +1,15 @@
-@EKids.Chatbot.Users.WebApi_HostAddress = http://localhost:5199
-
-GET {{EKids.Chatbot.Users.WebApi_HostAddress}}/todos/
+@host = http://localhost:5199
+POST {{host}}/users?api-version=1.0
 Accept: application/json
+Content-Type: application/json; charset=utf-8
+
+{
+    "userName": "LeonidPetrov",
+    "email": "ungerfall@gmail.com"
+}
 
 ###
-
-GET {{EKids.Chatbot.Users.WebApi_HostAddress}}/todos/1
+GET {{host}}/users?api-version=1.0
 Accept: application/json
 
 ###
