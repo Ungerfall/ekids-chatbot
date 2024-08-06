@@ -9,11 +9,15 @@ public class GetUsersCommand(
     UsersApiClient usersApiClient,
     ILogger<StartCommand> logger)
 {
+    private readonly System.Text.Json.JsonSerializerOptions _jsonOptions = new() { WriteIndented = true };
+
     public async Task Handle(long chatId)
     {
         logger.LogInformation("Handling /getusers command");
 
         IEnumerable<UsersApiUser?> users = await usersApiClient.GetUsers();
-        await botClient.SendTextMessageAsync(chatId, System.Text.Json.JsonSerializer.Serialize(users));
+        await botClient.SendTextMessageAsync(
+            chatId,
+            System.Text.Json.JsonSerializer.Serialize(users, options: _jsonOptions));
     }
 }
