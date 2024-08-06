@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using EKids.Chatbot.Telegram.Core.Commands;
+using Microsoft.Extensions.Logging;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Types;
@@ -7,6 +8,8 @@ namespace EKids.Chatbot.Telegram.Core;
 
 public class UpdateHandler(
     ITelegramBotClient botClient,
+    StartCommand startCommand,
+    GetUsersCommand getUsersCommand,
     ILogger<UpdateHandler> logger)
 {
     private const string BotUsername = "@ekids-bot";
@@ -47,14 +50,14 @@ public class UpdateHandler(
             return;
         }
 
-        string command = messageText; // add logic to extract command
+        string command = messageText; // TODO: add logic to extract command
         var action = command switch
         {
-            /*
-                handle command here
-             */
+            "/start" => startCommand.Handle(message.Chat.Id),
+            "/getusers" => getUsersCommand.Handle(message.Chat.Id),
             _ => OnMessageReceived(message, messageText, cancellation),
         };
+
         await action;
     }
 

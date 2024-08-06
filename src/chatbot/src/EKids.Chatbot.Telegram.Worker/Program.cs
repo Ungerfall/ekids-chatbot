@@ -1,5 +1,6 @@
 ﻿using EKids.Chatbot.Telegram.Core;
 using EKids.Chatbot.Telegram.Core.ApiClients;
+using EKids.Chatbot.Telegram.Core.Commands;
 using EKids.Chatbot.Telegram.Worker;
 using EKids.Chatbot.Telegram.Worker.Services;
 using Microsoft.Extensions.Options;
@@ -30,6 +31,10 @@ builder.Services.AddHttpClient<UsersApiClient>("users_api_client", client =>
 builder.Services.AddScoped<PollingUpdateHandler>();
 builder.Services.AddScoped<ReceiverService>();
 builder.Services.AddScoped<UpdateHandler>();
+// bot commands
+builder.Services.AddSingleton<StartCommand>();
+builder.Services.AddSingleton<GetUsersCommand>();
+
 builder.Services.AddHostedService<PollingService>();
 
 IHost host = builder.Build();
