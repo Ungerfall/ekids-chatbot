@@ -28,3 +28,33 @@ Content-Type: application/json; charset=utf-8
 ###
 GET {{host}}/courses/a5066135-078b-453a-93d9-08dcb67d5483/children?api-version=1.0
 Accept: application/json
+
+###
+POST {{host}}/parents?api-version=1.0
+Accept: application/json
+Content-Type: application/json; charset=utf-8
+
+{
+    "userName": "Parent1",
+    "email": "parent1@example.com"
+}
+
+###
+POST {{host}}/parents/eaf99f3e-30ab-4291-9b41-08dcb6b98e3b/children?api-version=1.0
+Accept: application/json
+Content-Type: application/json; charset=utf-8
+
+{
+    "children": [
+        {
+            "userName": "parent1child1"
+        },
+        {
+            "userName": "parent1child2"
+        }
+    ]
+}
+
+###
+GET {{host}}/parents?api-version=1.0
+Accept: application/json

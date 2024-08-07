@@ -19,10 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Dto\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\..\shared\EKids.Chatbot.ServiceDefaults\EKids.Chatbot.ServiceDefaults.csproj" />
   </ItemGroup>
 

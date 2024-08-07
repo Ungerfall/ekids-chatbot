@@ -8,7 +8,7 @@ public static class ChildrenEndpoint
     public static IVersionedEndpointRouteBuilder MapChildrenApi(this IEndpointRouteBuilder routeBuilder)
     {
         var coursesApi = routeBuilder.NewVersionedApi();
-        var v1 = coursesApi.MapGroup("/courses/").HasApiVersion(1.0);
+        var v1 = coursesApi.MapGroup("/courses").HasApiVersion(1.0);
         v1.MapGet("/{courseId}/children", async (Guid courseId, UsersDbContext db) =>
         {
             courseId = Guid.Empty; // TODO: implement course id
