@@ -1,0 +1,148 @@
+openapi: 3.0.0
+info:
+  title: Users API
+  version: 2.0.0
+paths:
+
+  /users:
+    get:
+      summary: List of users
+      parameters:
+        $ref: '#/components/parameters/ApiVersion'
+      responses:
+        '200':
+          description: A JSON array of users
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Users'
+
+    post:
+      summary: Add a new user
+      parameters:
+        $ref: '#/components/parameters/ApiVersion'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: User created
+
+  /users/{userId}:
+    parameters:
+      $ref: '#/components/parameters/ApiVersion'
+      - in: path
+        name: userId
+        required: true
+        schema:
+          type: string
+    put:
+      summary: Update a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: User updated
+    delete:
+      summary: Delete a user
+      responses:
+        '204':
+          description: User deleted
+
+  /children:
+    get:
+      summary: List of children with pagination
+      parameters:
+        $ref: '#/components/parameters/ApiVersion'
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: A paginated list of children
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Children'
+
+  /parents:
+    get:
+      summary: List of parents
+      parameters:
+        $ref: '#/components/parameters/ApiVersion'
+      responses:
+        '200':
+          description: A JSON array of parents
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/Parents'
+
+components:
+  parameters:
+    - in: query
+      name: api-version
+      schema:
+        type: string
+      required: true
+      description: API version
+  schemas:
+    User:
+      required:
+        - name
+        - age
+      properties:
+        id:
+          type: string
+          description: The user ID.
+        name:
+          type: string
+          description: The user's name.
+        age:
+          type: integer
+          description: The user's age.
+        type:
+          type: string
+          description: Specifies if the user is a child or parent.
+    Users:
+      type: array
+      items:
+        $ref: '#/components/schemas/User'
+    Child:
+      allOf:
+        - $ref: '#/components/schemas/User'
+      properties:
+        parentId:
+          type: string
+          description: The ID of parent.
+    Children:
+      type: array
+      items:
+        $ref: '#/components/schemas/Child'
+    Parent:
+      allOf:
+        - $ref: '#/components/schemas/User'
+      properties:
+        childrenIds:
+          type: array
+          description: Array of children IDs.
+          items:
+            type: string
+    Parents:
+      type: array
+      items:
+        $ref: '#/components/schemas/Parent'
