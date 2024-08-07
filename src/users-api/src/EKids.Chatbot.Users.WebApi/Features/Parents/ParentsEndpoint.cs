@@ -11,7 +11,7 @@ public static class ParentsEndpoint
     public static IVersionedEndpointRouteBuilder MapParentsApi(this IEndpointRouteBuilder routeBuilder)
     {
         var parentsApi = routeBuilder.NewVersionedApi();
-        var v1 = parentsApi.MapGroup("/parents").HasApiVersion(1.0);
+        var v1 = parentsApi.MapGroup("/parents").HasApiVersion(1.0).HasApiVersion(2.0);
         v1.MapPost("/", async (
             ParentCreate parent,
             UserManager<IdentityUser<Guid>> userManager,

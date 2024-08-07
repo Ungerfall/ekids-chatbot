@@ -9,7 +9,7 @@ public static class UsersEndpoint
     public static IVersionedEndpointRouteBuilder MapUsersApi(this IEndpointRouteBuilder routeBuilder)
     {
         var usersApi = routeBuilder.NewVersionedApi();
-        var v1 = usersApi.MapGroup("/users").HasApiVersion(1.0);
+        var v1 = usersApi.MapGroup("/users").HasApiVersion(1.0).HasApiVersion(2.0);
         v1.MapGet("/", async (UserManager<IdentityUser<Guid>> userManger, CancellationToken cancellation) =>
         {
             var users = await userManger.Users.ToArrayAsync(cancellationToken: cancellation);
