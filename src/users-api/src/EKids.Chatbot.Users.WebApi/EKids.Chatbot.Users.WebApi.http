@@ -5,7 +5,8 @@ Content-Type: application/json; charset=utf-8
 
 {
     "userName": "LeonidPetrov",
-    "email": "ungerfall@gmail.com"
+    "email": "ungerfall@gmail.com",
+    "roles": ["Administrator"]
 }
 
 ###
@@ -13,3 +14,4 @@ GET {{host}}/users?api-version=1.0
 Accept: application/json
 
 ###
+DELETE {{host}}/users/e7bdd26c-0545-462f-539c-08dcb4eacf0f?api-version=1.0
