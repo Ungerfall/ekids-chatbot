@@ -24,3 +24,7 @@ Content-Type: application/json; charset=utf-8
 {
     "userName": "LeonidPetrovNewNameAgain"
 }
+
+###
+GET {{host}}/courses/a5066135-078b-453a-93d9-08dcb67d5483/children?api-version=1.0
+Accept: application/json

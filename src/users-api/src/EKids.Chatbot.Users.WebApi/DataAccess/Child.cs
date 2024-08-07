@@ -6,8 +6,8 @@ public class Child
     public Guid Id { get; set; }
 
     public Guid ChildUserId { get; set; }
-    public IdentityUser<Guid> ChildUser { get; set; } = null!;
+    public required IdentityUser<Guid> ChildUser { get; set; }
 
     public Guid ParentUserId { get; set; }
-    public IdentityUser<Guid> ParentUser { get; set; } = null!;
+    public required IdentityUser<Guid> ParentUser { get; set; }
 }

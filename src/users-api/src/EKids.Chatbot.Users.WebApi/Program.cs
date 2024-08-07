@@ -1,4 +1,5 @@
 using EKids.Chatbot.Users.DataAccess;
+using EKids.Chatbot.Users.WebApi.Features.Children;
 using EKids.Chatbot.Users.WebApi.Features.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -18,5 +19,6 @@ builder.Services.AddApiVersioning();
 var app = builder.Build();
 app.UseDeveloperExceptionPage();
 app.MapUsersApi();
+app.MapChildrenApi();
 
 app.Run();
