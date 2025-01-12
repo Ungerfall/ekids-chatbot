@@ -16,10 +16,20 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.6" />
+    <PackageReference Include="NSwag.Annotations" Version="14.1.0" />
+    <PackageReference Include="NSwag.AspNetCore" Version="14.1.0" />
+    <PackageReference Include="NSwag.MSBuild" Version="14.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\shared\EKids.Chatbot.ServiceDefaults\EKids.Chatbot.ServiceDefaults.csproj" />
   </ItemGroup>
+
+    <Target Name="OpenApiGeneration" AfterTargets="Build">
+        <Exec Command="$(NSwagExe_Net80) aspnetcore2openapi /project:$(MSBuildProjectFullPath) /nobuild:true /output:../../docs/users_api.yaml" />
+    </Target>
 
 </Project>

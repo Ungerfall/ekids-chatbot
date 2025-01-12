@@ -12,6 +12,7 @@ public sealed class UsersDbContext(DbContextOptions<UsersDbContext> options) : I
     {
         base.OnModelCreating(builder);
 
+        // TODO: set User
         builder.Entity<Child>(e =>
         {
             e.ToTable("Children");
@@ -19,12 +20,12 @@ public sealed class UsersDbContext(DbContextOptions<UsersDbContext> options) : I
             e.HasOne(x => x.ParentUser)
                 .WithMany()
                 .HasForeignKey(x => x.ParentUserId)
-                .OnDelete(DeleteBehavior.Cascade)
+                .OnDelete(DeleteBehavior.NoAction)
                 .IsRequired();
             e.HasOne(x => x.ChildUser)
                 .WithOne()
                 .HasForeignKey<Child>(x => x.ChildUserId)
-                .OnDelete(DeleteBehavior.NoAction)
+                .OnDelete(DeleteBehavior.Cascade)
                 .IsRequired();
         });
     }

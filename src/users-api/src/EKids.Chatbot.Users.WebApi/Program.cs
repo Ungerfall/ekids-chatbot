@@ -16,6 +16,8 @@ builder.Services.AddIdentity<IdentityUser<Guid>, IdentityRole<Guid>>()
     .AddEntityFrameworkStores<UsersDbContext>();
 
 builder.Services.AddApiVersioning();
+builder.Services.AddMvcCore().AddApiExplorer();
+builder.Services.AddOpenApiDocument();
 
 var app = builder.Build();
 app.UseDeveloperExceptionPage();

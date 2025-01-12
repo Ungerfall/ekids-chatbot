@@ -1,4 +1,5 @@
 ﻿using Asp.Versioning.Builder;
+using EKids.Chatbot.Users.DataAccess;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Transactions;
@@ -13,13 +14,14 @@ public static class UsersEndpoint
         v1.MapGet("/", async (UserManager<IdentityUser<Guid>> userManger, CancellationToken cancellation) =>
         {
             var users = await userManger.Users.ToArrayAsync(cancellationToken: cancellation);
-            return await Task.WhenAll(
-                users
-                    .Select(async x =>
-                    {
-                        var roles = await userManger.GetRolesAsync(x);
-                        return new User(x.Id, x.UserName, x.Email, roles);
-                    }));
+            List<User> usersWithRoles = [];
+            foreach (var user in users)
+            {
+                var roles = await userManger.GetRolesAsync(user);
+                usersWithRoles.Add(new User(user.Id, user.UserName, user.Email, roles));
+            }
+
+            return new UsersList([.. usersWithRoles]);
         })
             .Produces<UsersList>();
 
@@ -77,7 +79,7 @@ public static class UsersEndpoint
             return Results.Created();
         });
 
-        v1.MapDelete("/{userId}", async (Guid userId, UserManager<IdentityUser<Guid>> userManager) =>
+        v1.MapDelete("/{userId}", async (Guid userId, UserManager<IdentityUser<Guid>> userManager, UsersDbContext db) =>
         {
             var user = await userManager.FindByIdAsync(userId.ToString());
             if (user is null)
