@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "EKids.Chatbot.Telegram.Worker": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

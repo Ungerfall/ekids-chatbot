@@ -1,0 +1,69 @@
+@host = http://localhost:5199
+@course = a5066135-078b-453a-93d9-08dcb67d5483
+POST {{host}}/users?api-version=1.0
+Accept: application/json
+Content-Type: application/json; charset=utf-8
+
+{
+    "userName": "LeonidPetrov",
+    "email": "ungerfall@gmail.com",
+    "roles": ["Administrator"]
+}
+
+###
+GET {{host}}/users?api-version=1.0
+Accept: application/json
+
+###
+DELETE {{host}}/users/dfc0e41e-c730-4385-3646-08dcb6cbda76?api-version=1.0
+
+###
+PATCH {{host}}/users/a5066135-078b-453a-93d9-08dcb67d5483?api-version=1.0
+Accept: application/json
+Content-Type: application/json; charset=utf-8
+
+{
+    "userName": "LeonidPetrovNewNameAgain"
+}
+
+###
+GET {{host}}/courses/{{course}}/children?api-version=1.0
+Accept: application/json
+
+###
+GET {{host}}/courses/{{course}}/children?api-version=1.0&parent=Parent1
+Accept: application/json
+
+###
+GET {{host}}/courses/{{course}}/children?api-version=2.0&userName=parent1child2
+Accept: application/json
+
+###
+POST {{host}}/parents?api-version=1.0
+Accept: application/json
+Content-Type: application/json; charset=utf-8
+
+{
+    "userName": "Parent2",
+    "email": "parent2@example.com"
+}
+
+###
+POST {{host}}/parents/5d9e0d39-a316-4fdd-3645-08dcb6cbda76/children?api-version=1.0
+Accept: application/json
+Content-Type: application/json; charset=utf-8
+
+{
+    "children": [
+        {
+            "userName": "parent2child1"
+        },
+        {
+            "userName": "parent2child2"
+        }
+    ]
+}
+
+###
+GET {{host}}/parents?api-version=1.0
+Accept: application/json
