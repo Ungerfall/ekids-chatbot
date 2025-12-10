@@ -9,29 +9,31 @@ services:
     container_name: homeworkmngt_app
     ports:
       - '8080:8080'
-    #depends_on:
-    #  - homeworkmngt_db
+    depends_on:
+      - homeworkmngt_db
     environment:
-      #- SPRING_DATASOURCE_URL=jdbc:postgresql://homeworkmngt_db:5432/homework-management
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://host.docker.internal:5432/homework-management
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://homeworkmngt_db:5432/homework-management
+        #- SPRING_DATASOURCE_URL=jdbc:postgresql://host.docker.internal:5432/homework-management
       - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=P@nVi2023!
+      - SPRING_DATASOURCE_PASSWORD=password
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - LOCAL.SOURCE.DIRECTORY=/sftp/eKidz/Homeworks/IN/
       - LOCAL.SUCCESS.DESTINATION.DIRECTORY=/sftp/eKidz/Homeworks/SUCCESS/
       - LOCAL.ERROR.DESTINATION.DIRECTORY=/sftp/eKidz/Homeworks/ERROR/
+      - OPENAI_API_KEY=sk-123123
+      - SPRING_LOGGING_LEVEL_ROOT=DEBUG
     volumes:
-      - "C:/SFTP/eKidz/Homeworks/IN:/sftp/eKidz/Homeworks/IN"
-      - "C:/SFTP/eKidz/Homeworks/SUCCESS:/sftp/eKidz/Homeworks/SUCCESS"
-      - "C:/SFTP/eKidz/Homeworks/ERROR:/sftp/eKidz/Homeworks/ERROR"
+      - "~/eKidz/Homeworks/IN:/sftp/eKidz/Homeworks/IN"
+      - "~/eKidz/Homeworks/SUCCESS:/sftp/eKidz/Homeworks/SUCCESS"
+      - "~/eKidz/Homeworks/ERROR:/sftp/eKidz/Homeworks/ERROR"
 
-#  homeworkmngt_db:
-#    image: 'postgres:13.1-alpine'
-#    restart: always
-#    container_name: homeworkmngt_db
-#    ports:
-#      - '5432:5432'
-#    environment:
-#      - POSTGRES_PASSWORD=password
-#      - POSTGRES_USER=postgres
-#      - POSTGRES_DB=homework-management
+  homeworkmngt_db:
+    image: 'postgres:13.1-alpine'
+    restart: always
+    container_name: homeworkmngt_db
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=homework-management
